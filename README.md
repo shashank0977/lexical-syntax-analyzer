@@ -35,4 +35,53 @@ A Python-based mini compiler project implementing core compiler design concepts 
 
 ## ▶️ How to Run
 
-### Clone the repository
+### 1️⃣ Clone the repository
+```
+git clone https://github.com/shashank0977/lexical-syntax-analyzer.git
+```
+
+### 2️⃣ Navigate to project folder
+```
+cd lexical-syntax-analyzer
+```
+
+### 3️⃣ Run the program
+```
+python main.py
+```
+
+---
+
+## 📌 Project Structure
+
+```
+lexical-syntax-analyzer/
+│── lexer/            # Lexical analyzer module
+│── parser/           # Grammar, FIRST, FOLLOW, LL(1) parser
+│── utils/            # Helper utilities
+│── main.py           # Main driver program
+│── README.md
+```
+
+---
+
+## 🎯 Project Objectives
+
+- Understand compiler design fundamentals
+- Implement lexical and syntax analysis
+- Learn FIRST and FOLLOW set computation
+- Implement LL(1) parsing technique
+- Build a mini compiler simulation tool
+
+---
+
+## 👨‍💻 Author
+
+**Shashank Billa**  
+CSE Student — Compiler Design Project
+
+---
+
+## 📌 Note
+
+This project was developed for academic purposes to demonstrate understanding of lexical and syntax analysis in compiler design.
