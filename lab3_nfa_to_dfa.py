@@ -1,35 +1,40 @@
-
-nfa_states = {
-    'A': {'0':['A','B'], '1':['A']},
-    'B': {'1':['C']},
-    'C': {}
+nfa = {
+    0: {'ε':[1,2]},
+    1: {'a':[1]},
+    2: {'b':[2]}
 }
 
-dfa_states = {}
+def epsilon_closure(states):
+    stack=list(states)
+    closure=set(states)
+    while stack:
+        s=stack.pop()
+        for nxt in nfa.get(s,{}).get('ε',[]):
+            if nxt not in closure:
+                closure.add(nxt)
+                stack.append(nxt)
+    return closure
 
-start = frozenset(['A'])
-unmarked = [start]
+def move(states, sym):
+    res=set()
+    for s in states:
+        res.update(nfa.get(s,{}).get(sym,[]))
+    return res
+
+start=frozenset(epsilon_closure({0}))
+dfa={}
+unmarked=[start]
+symbols=['a','b']
 
 while unmarked:
-    state = unmarked.pop()
+    state=unmarked.pop()
+    dfa[state]={}
+    for sym in symbols:
+        new=frozenset(epsilon_closure(move(state,sym)))
+        dfa[state][sym]=new
+        if new not in dfa:
+            unmarked.append(new)
 
-    if state not in dfa_states:
-        dfa_states[state] = {}
-
-        for symbol in ['0','1']:
-            new=set()
-
-            for s in state:
-                if symbol in nfa_states[s]:
-                    new.update(nfa_states[s][symbol])
-
-            new_state=frozenset(new)
-
-            dfa_states[state][symbol]=new_state
-
-            if new_state not in dfa_states:
-                unmarked.append(new_state)
-
-print("DFA States:")
-for k,v in dfa_states.items():
+print("DFA:")
+for k,v in dfa.items():
     print(k,"->",v)
