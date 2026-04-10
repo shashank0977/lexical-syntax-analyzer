@@ -1,23 +1,24 @@
-
 class State:
     def __init__(self):
         self.edges = {}
 
 class NFA:
-    def __init__(self,start,accept):
-        self.start=start
-        self.accept=accept
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
 
-def regex_to_nfa(symbol):
-    start=State()
-    accept=State()
-    start.edges[symbol]=accept
-    return NFA(start,accept)
+def symbol_nfa(symbol):
+    s = State()
+    e = State()
+    s.edges[symbol] = [e]
+    return NFA(s, e)
 
-regex=input("Enter symbol regex: ")
+def concat(nfa1, nfa2):
+    nfa1.end.edges['ε'] = [nfa2.start]
+    return NFA(nfa1.start, nfa2.end)
 
-nfa=regex_to_nfa(regex)
+a = symbol_nfa('a')
+b = symbol_nfa('b')
+result = concat(a, b)
 
-print("NFA Created")
-print("Start State:",nfa.start)
-print("Accept State:",nfa.accept)
+print("NFA constructed for 'ab'")
