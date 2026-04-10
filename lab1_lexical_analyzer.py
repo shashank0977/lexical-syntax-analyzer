@@ -1,20 +1,18 @@
-
 import re
 
-keywords = ['int','float','if','else','while','return']
+keywords = {'int','float','if','else','while','return'}
+operators = {'+','-','*','/','=','=='}
 
 code = input("Enter code: ")
 
-tokens = code.split()
+tokens = re.findall(r'[A-Za-z_]\w*|\d+|==|[+\-*/=]', code)
 
 for token in tokens:
     if token in keywords:
-        print(token,"-> KEYWORD")
-    elif re.match(r'^[0-9]+$',token):
-        print(token,"-> NUMBER")
-    elif re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$',token):
-        print(token,"-> IDENTIFIER")
-    elif token in ['+','-','*','/','=','==']:
-        print(token,"-> OPERATOR")
+        print(token, "-> KEYWORD")
+    elif token in operators:
+        print(token, "-> OPERATOR")
+    elif token.isdigit():
+        print(token, "-> NUMBER")
     else:
-        print(token,"-> UNKNOWN")
+        print(token, "-> IDENTIFIER")
