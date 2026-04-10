@@ -1,26 +1,20 @@
-# Compiler Design Lab Experiments
+# Compiler Design Lab Experiments (Lab 1 – Lab 15)
 
-## Project Overview
+## 📌 Project Overview
 
-This project implements fundamental **Compiler Design laboratory experiments** using Python.
-The aim is to understand the core concepts of compiler construction such as **lexical analysis, automata conversion, grammar transformation, and predictive parsing**.
+This project contains the implementation of fundamental **Compiler Design laboratory experiments** using Python.
 
-Each experiment demonstrates one important phase used in building a compiler.
+It covers all major phases of a compiler including:
 
----
-
-# Experiments Implemented
-
-1. Implementation of **Lexical Analyzer**
-2. Conversion from **Regular Expression to NFA**
-3. Conversion from **NFA to DFA**
-4. **Elimination of Ambiguity, Left Recursion, and Left Factoring**
-5. **FIRST and FOLLOW Computation**
-6. **Predictive Parsing Table Construction**
+* Lexical Analysis
+* Syntax Analysis
+* Intermediate Code Generation
+* Optimization Techniques
+* Storage Allocation
 
 ---
 
-# Project Structure
+# 📂 Project Structure
 
 ```
 compiler-design-lab/
@@ -31,235 +25,300 @@ compiler-design-lab/
 ├── lab4_left_recursion_factoring.py
 ├── lab5_first_follow.py
 ├── lab6_predictive_parsing_table.py
+├── lab7_shift_reduce_parsing.py
+├── lab8_leading_trailing.py
+├── lab9_lr0_items.py
+├── lab10_postfix_prefix.py
+├── lab11_quadruple_triple.py
+├── lab12_simple_code_generator.py
+├── lab13_dag.py
+├── lab14_data_flow.py
+├── lab15_storage_allocation.py
 │
 └── README.md
 ```
 
 ---
 
-# Implementation Details
-
-## Lab 1 – Lexical Analyzer
-
-### Objective
-
-To implement a simple lexical analyzer that identifies tokens such as:
-
-* Keywords
-* Identifiers
-* Numbers
-* Operators
-
-### Implementation Process
-
-1. Read source code input from the user.
-2. Split the input into tokens.
-3. Compare tokens with predefined keyword list.
-4. Use **regular expressions** to detect numbers and identifiers.
-5. Classify each token and print its type.
-
-### Output Example
-
-```
-Enter code: int a = 5
-
-int -> KEYWORD
-a -> IDENTIFIER
-= -> OPERATOR
-5 -> NUMBER
-```
+# 🧪 Experiment Details & Implementation
 
 ---
 
-# Lab 2 – Regular Expression to NFA
+## 🔹 Lab 1 – Lexical Analyzer
 
 ### Objective
 
-To convert a regular expression into an **NFA (Non Deterministic Finite Automaton)**.
+To identify tokens such as keywords, identifiers, numbers, and operators.
 
-### Implementation Process
+### Process
 
-1. Define a **State class** to represent NFA states.
-2. Create a start state and an accept state.
-3. Add transition edges based on the regular expression.
-4. Return the constructed NFA.
-5. Display start and accept states.
+1. Take input code.
+2. Split into tokens.
+3. Match using:
 
-### Concept Used
-
-* Finite Automata
-* State transitions
+   * Keywords list
+   * Regular expressions
+4. Print token type.
 
 ---
 
-# Lab 3 – NFA to DFA Conversion
+## 🔹 Lab 2 – Regular Expression to NFA
 
 ### Objective
 
-Convert a **Non Deterministic Finite Automaton (NFA)** into a **Deterministic Finite Automaton (DFA)**.
+Convert a simple regular expression into NFA.
 
-### Implementation Process
+### Process
 
-1. Define NFA transition table.
-2. Use **subset construction method**.
-3. Start from the initial NFA state.
-4. Generate DFA states as sets of NFA states.
-5. Compute transitions for each input symbol.
-6. Store the DFA transition table.
-
-### Output
-
-The program prints the **DFA states and transitions**.
+1. Create state objects.
+2. Define start and accept states.
+3. Add transition based on symbol.
+4. Display NFA structure.
 
 ---
 
-# Lab 4 – Elimination of Left Recursion and Left Factoring
+## 🔹 Lab 3 – NFA to DFA
 
 ### Objective
 
-To remove grammar ambiguity by eliminating **left recursion** and applying **left factoring**.
+Convert NFA into DFA using subset construction.
 
-### Implementation Process
+### Process
 
-1. Identify productions with left recursion.
-2. Separate productions into:
-
-* Recursive rules
-* Non recursive rules
-
-3. Create a new non-terminal symbol.
-4. Rewrite grammar without left recursion.
-
-### Example
-
-Original Grammar
-
-```
-A → Aα | β
-```
-
-Transformed Grammar
-
-```
-A → βA'
-A' → αA' | ε
-```
+1. Represent NFA transitions.
+2. Use set of states as DFA state.
+3. Compute transitions for each symbol.
+4. Store new DFA states.
 
 ---
 
-# Lab 5 – FIRST and FOLLOW Computation
+## 🔹 Lab 4 – Left Recursion & Left Factoring
 
 ### Objective
 
-Compute **FIRST** and **FOLLOW** sets for grammar symbols.
+Remove ambiguity from grammar.
 
-### FIRST Set
+### Process
 
-The FIRST set contains terminals that appear at the **beginning of strings derived from a non-terminal**.
-
-### FOLLOW Set
-
-The FOLLOW set contains terminals that **can appear immediately after a non-terminal**.
-
-### Implementation Process
-
-1. Define grammar productions.
-2. Recursively compute FIRST sets.
-3. Store results in a dictionary.
-4. Print FIRST sets for each non-terminal.
+1. Identify left recursive productions.
+2. Split into α and β rules.
+3. Introduce new non-terminal.
+4. Rewrite grammar.
 
 ---
 
-# Lab 6 – Predictive Parsing Table
+## 🔹 Lab 5 – FIRST & FOLLOW
 
 ### Objective
 
-Construct an **LL(1) Predictive Parsing Table**.
+Compute FIRST and FOLLOW sets.
 
-### Implementation Process
+### Process
 
-1. Use grammar productions.
-2. Use computed FIRST and FOLLOW sets.
-3. Create parsing table entries.
-4. Store entries in a dictionary.
-5. Print table in `(NonTerminal, Terminal)` format.
-
-### Example Entry
-
-```
-(E , i) → E → TR
-```
+1. Define grammar.
+2. Recursively compute FIRST.
+3. FOLLOW (basic idea).
+4. Store in dictionary.
 
 ---
 
-# Requirements
+## 🔹 Lab 6 – Predictive Parsing Table
+
+### Objective
+
+Construct LL(1) parsing table.
+
+### Process
+
+1. Use FIRST and FOLLOW sets.
+2. Create table entries.
+3. Map (Non-terminal, Terminal) → Production.
+
+---
+
+## 🔹 Lab 7 – Shift Reduce Parsing
+
+### Objective
+
+Implement bottom-up parsing.
+
+### Process
+
+1. Initialize stack and input buffer.
+2. Perform:
+
+   * Shift (push input to stack)
+   * Reduce (replace handle)
+3. Repeat until accepted.
+
+---
+
+## 🔹 Lab 8 – LEADING & TRAILING
+
+### Objective
+
+Compute LEADING and TRAILING sets.
+
+### Process
+
+1. For each production:
+
+   * LEADING → first symbol
+   * TRAILING → last symbol
+2. Store results.
+
+---
+
+## 🔹 Lab 9 – LR(0) Items
+
+### Objective
+
+Generate LR(0) items.
+
+### Process
+
+1. Take productions.
+2. Insert dot (•) at all positions.
+3. Print all items.
+
+---
+
+## 🔹 Lab 10 – Prefix & Postfix
+
+### Objective
+
+Convert infix expression.
+
+### Process
+
+1. Take input expression.
+2. Reverse / process stack logic.
+3. Generate:
+
+   * Prefix
+   * Postfix
+
+---
+
+## 🔹 Lab 11 – Quadruple, Triple, Indirect Triple
+
+### Objective
+
+Generate intermediate code.
+
+### Process
+
+1. Break expression.
+2. Use temporary variables.
+3. Represent in:
+
+   * Quadruple
+   * Triple
+   * Indirect Triple
+
+---
+
+## 🔹 Lab 12 – Simple Code Generator
+
+### Objective
+
+Generate simple machine-like instructions.
+
+### Process
+
+1. Parse expression.
+2. Identify operators.
+3. Generate instructions:
+
+   * ADD
+   * SUB
+
+---
+
+## 🔹 Lab 13 – DAG Implementation
+
+### Objective
+
+Optimize expressions using DAG.
+
+### Process
+
+1. Represent expression as graph.
+2. Avoid recomputation.
+3. Store nodes efficiently.
+
+---
+
+## 🔹 Lab 14 – Global Data Flow Analysis
+
+### Objective
+
+Analyze variable usage.
+
+### Process
+
+1. Identify variables.
+2. Track liveness.
+3. Print analysis result.
+
+---
+
+## 🔹 Lab 15 – Storage Allocation
+
+### Objective
+
+Implement memory allocation strategy.
+
+### Process
+
+1. Use stack structure.
+2. Perform push and pop.
+3. Simulate memory allocation.
+
+---
+
+# ⚙️ Requirements
 
 * Python 3.x
-* Basic understanding of compiler design concepts
 
 ---
 
-# How to Run the Project
+# ▶️ How to Run
 
-### Step 1
+### Step 1: Open terminal
 
-Install Python from:
-
-```
-https://www.python.org
-```
-
-### Step 2
-
-Download the project or clone the repository.
-
-```
-git clone <repository-link>
-```
-
-### Step 3
-
-Navigate to the project directory.
+### Step 2: Navigate to project folder
 
 ```
 cd compiler-design-lab
 ```
 
-### Step 4
-
-Run any experiment.
-
-Example:
+### Step 3: Run any file
 
 ```
 python lab1_lexical_analyzer.py
 ```
 
-Run others similarly:
-
-```
-python lab2_regex_to_nfa.py
-python lab3_nfa_to_dfa.py
-python lab4_left_recursion_factoring.py
-python lab5_first_follow.py
-python lab6_predictive_parsing_table.py
-```
+Run others similarly.
 
 ---
 
-# Learning Outcomes
+# 🎯 Learning Outcomes
 
-After completing these experiments, the following concepts are understood:
+After completing this project, you will understand:
 
-* Tokenization and lexical analysis
-* Automata construction
-* Grammar transformations
-* Parsing techniques
-* Compiler front-end design
+* Lexical Analysis
+* Finite Automata
+* Grammar Transformations
+* Parsing Techniques (Top-down & Bottom-up)
+* Intermediate Code Generation
+* Optimization Techniques
+* Memory Management in Compiler
 
 ---
 
-# Author
-Shashank Billa
-Compiler Design Laboratory Project
-Computer Science Engineering
+# 👨‍💻 Author
+
+Billa Shashank
+Computer Science Engineering 
+Student
