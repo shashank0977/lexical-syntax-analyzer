@@ -1,0 +1,1 @@
+print('Postfix prefix')
